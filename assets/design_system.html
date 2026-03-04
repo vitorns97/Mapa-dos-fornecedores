@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gold Design System</title>
+<script src="../templates/lumina-video/assets/resource_3fa48481346f.js"></script>
+<script src="../templates/lumina-video/assets/lucide_latest_2eebd0ebe8c2.js"></script>
+<script src="../templates/animations-gemini/assets/iconify-icon_e19829e7f0e8.js"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="../templates/lumina-video/assets/css2_2832c0ff631d.css" rel="stylesheet"/>
+<link href="../templates/lumina-video/assets/css2_2b2d87bc82d8.css" rel="stylesheet"/>
+<link href="../templates/animations-gemini/assets/css2_d532a689d235.css" rel="stylesheet"/>
+<style>
+:root{--gold:#D4AF37;--gold-h:#E6C873;--gold-s:#F6E6B4;--gold-d:#8C6F1F;--bg:#050505}
+::-webkit-scrollbar{width:0}html{scroll-behavior:smooth}
+.button-custom{cursor:pointer;position:relative;display:inline-flex;align-items:center;justify-content:center;overflow:hidden;transition:all .25s ease;background:radial-gradient(65.28% 65.28% at 50% 100%,rgba(230,200,115,.8) 0%,rgba(230,200,115,0) 100%),linear-gradient(0deg,#D4AF37,#D4AF37);border-radius:9999px;border:none;padding:10px 24px;min-height:44px}
+.button-custom::before{content:"";position:absolute;inset:1px;background:linear-gradient(178deg,rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);border-radius:9999px;transition:all .5s ease-in-out;z-index:0}
+.button-custom::after{content:"";position:absolute;inset:2px;background:radial-gradient(65.28% 65.28% at 50% 100%,rgba(230,200,115,.8) 0%,rgba(230,200,115,0) 100%),linear-gradient(0deg,#D4AF37,#D4AF37);border-radius:9999px;transition:all .5s ease-in-out;z-index:0}
+.button-custom:hover .inner svg.icon{transform:translateX(2px)}
+.inner{z-index:2;gap:6px;position:relative;width:100%;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:.875rem;font-weight:500}
+.inner svg.icon{width:16px;height:16px;transition:transform .3s ease;stroke:#fff;fill:none}
+.points_wrapper{overflow:hidden;width:100%;height:100%;pointer-events:none;position:absolute;z-index:1}
+.points_wrapper .point{bottom:-10px;position:absolute;animation:floating-points infinite ease-in-out;pointer-events:none;width:2px;height:2px;background-color:#F6E6B4;border-radius:9999px}
+@keyframes floating-points{0%{transform:translateY(0)}85%{opacity:0}100%{transform:translateY(-55px);opacity:0}}
+.points_wrapper .point:nth-child(1){left:10%;opacity:1;animation-duration:2.35s;animation-delay:.2s}
+.points_wrapper .point:nth-child(2){left:30%;opacity:.7;animation-duration:2.5s;animation-delay:.5s}
+.points_wrapper .point:nth-child(3){left:25%;opacity:.8;animation-duration:2.2s;animation-delay:.1s}
+.points_wrapper .point:nth-child(4){left:44%;opacity:.6;animation-duration:2.05s}
+.points_wrapper .point:nth-child(5){left:50%;opacity:1;animation-duration:1.9s}
+.points_wrapper .point:nth-child(6){left:75%;opacity:.5;animation-duration:1.5s;animation-delay:1.5s}
+.points_wrapper .point:nth-child(7){left:88%;opacity:.9;animation-duration:2.2s;animation-delay:.2s}
+@keyframes beam-fall{0%{transform:translateY(-100%);opacity:0}5%{opacity:.5}50%{opacity:1}95%{opacity:.5}100%{transform:translateY(120vh);opacity:0}}
+.animate-beam-1{animation:beam-fall 6s linear infinite;animation-delay:0s}
+.animate-beam-2{animation:beam-fall 8s linear infinite;animation-delay:2s}
+.animate-beam-3{animation:beam-fall 7s linear infinite;animation-delay:4s}
+.card-stack-item{transition:transform .6s cubic-bezier(.34,1.56,.64,1),opacity .5s ease,z-index 0s}
+@keyframes fadeSlideIn{0%{opacity:0;transform:translateY(30px);filter:blur(8px)}100%{opacity:1;transform:translateY(0);filter:blur(0)}}
+.animate-on-scroll{animation-play-state:paused !important}
+.animate-on-scroll.animate{animation-play-state:running !important}
+@keyframes shimmer{from{transform:translateX(-100%) skewX(-15deg)}to{transform:translateX(200%) skewX(-15deg)}}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.animate-marquee{animation:marquee 40s linear infinite}
+.flashlight-card{background:rgba(255,255,255,.01)}
+.flashlight-card::before{content:"";position:absolute;inset:0;background:radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),rgba(212,175,55,.12),transparent 40%);opacity:0;transition:opacity .5s;pointer-events:none;z-index:2}
+.flashlight-card:hover::before{opacity:1}
+.glass-panel{background:rgba(23,23,23,.6);backdrop-filter:blur(20px)}
+.gold-glow-text{text-shadow:0 0 40px rgba(212,175,55,.3),0 0 80px rgba(212,175,55,.1)}
+[style*="--border-gradient"]::before{content:"";position:absolute;inset:0;padding:1px;border-radius:var(--border-radius-before,inherit);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;background:var(--border-gradient);pointer-events:none}
+.perspective-none{perspective:none!important}
+.perspective-normal{perspective:500px!important}
+.font-instrument-serif{font-family:'Instrument Serif',serif !important}
+@keyframes goldPulse{0%,100%{box-shadow:0 0 20px rgba(212,175,55,.2)}50%{box-shadow:0 0 40px rgba(212,175,55,.5)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+</style>
+<script>
+tailwind.config={theme:{extend:{}}};
+</script>
+<script>
+(function(){var once=true;if(!window.__inViewIO){window.__inViewIO=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("animate");if(once)window.__inViewIO.unobserve(entry.target)}});},{threshold:0.15,rootMargin:"0px 0px -10% 0px"})}window.initInViewAnimations=function(selector){selector=selector||".animate-on-scroll";document.querySelectorAll(selector).forEach(function(el){window.__inViewIO.observe(el)})};document.addEventListener("DOMContentLoaded",function(){initInViewAnimations()});})();
+</script>
+</head>
+<body class="bg-[#050505] text-white font-sans antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 flex flex-col min-h-screen">
+<div class="fixed z-0 top-0 right-0 bottom-0 left-0">
+  <div class="absolute inset-0 bg-gradient-to-b from-[#050505]/90 via-[#050505]/70 to-[#050505]"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#8C6F1F]/10 via-[#050505]/0 to-[#050505]/0"></div>
+</div>
+<div class="fixed inset-0 z-0 pointer-events-none flex w-full max-w-7xl mx-auto border-r border-white/5 opacity-60">
+  <div class="flex-1 border-l border-white/5 h-full relative overflow-hidden"><span class="absolute bottom-8 left-4 text-white/10 text-xs font-mono">01</span></div>
+  <div class="flex-1 border-l border-white/5 h-full relative overflow-hidden"><div class="absolute top-0 -left-[1px] w-[1px] h-64 bg-gradient-to-b from-transparent via-[#D4AF37]/60 to-transparent animate-beam-1"></div><span class="absolute bottom-8 left-4 text-white/10 text-xs font-mono">02</span></div>
+  <div class="flex-1 border-l border-white/5 h-full flex justify-center relative overflow-hidden"><div class="absolute top-0 -left-[1px] w-[1px] h-96 bg-gradient-to-b from-transparent via-[#D4AF37]/80 to-transparent animate-beam-2"></div><div class="h-full border-r border-dashed border-[#D4AF37]/20 w-px"></div><div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-64 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent animate-beam-1" style="animation-delay:1.5s;"></div><span class="absolute bottom-8 text-[#D4AF37]/30 text-xs font-mono">03</span></div>
+  <div class="flex-1 border-l border-white/5 h-full relative overflow-hidden"><div class="absolute top-0 -left-[1px] w-[1px] h-48 bg-gradient-to-b from-transparent via-[#D4AF37]/60 to-transparent animate-beam-3"></div><span class="absolute bottom-8 left-4 text-white/10 text-xs font-mono">04</span></div>
+  <div class="flex-1 border-l border-white/5 h-full relative overflow-hidden"><span class="absolute bottom-8 left-4 text-white/10 text-xs font-mono">05</span></div>
+</div>
+<div class="flex-1 flex flex-col w-full max-w-7xl mr-auto ml-auto relative">
+<nav class="flex justify-between items-center py-8 px-6 md:px-10 sticky top-0 z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
+  <div class="flex items-center gap-3 group cursor-pointer">
+    <div class="flex bg-gradient-to-tr from-[#D4AF37] to-[#E6C873] w-8 h-8 rounded-full items-center justify-center" style="position:relative;--border-gradient:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0));--border-radius-before:9999px;"><div class="w-2.5 h-2.5 bg-black rounded-full" style="position:relative;--border-gradient:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0));--border-radius-before:9999px"></div></div>
+    <span class="text-lg font-semibold tracking-tight text-white">Design System</span>
+  </div>
+  <div class="hidden md:flex items-center gap-6">
+    <a class="text-xs font-medium tracking-widest uppercase hover:text-white transition-colors text-neutral-400" href="#hero">Hero</a>
+    <a class="text-xs font-medium tracking-widest uppercase hover:text-white transition-colors text-neutral-400" href="#typography">Typography</a>
+    <a class="text-xs font-medium tracking-widest uppercase hover:text-white transition-colors text-neutral-400" href="#colors">Colors</a>
+    <a class="text-xs font-medium tracking-widest uppercase hover:text-white transition-colors text-neutral-400" href="#components">Components</a>
+    <a class="text-xs font-medium tracking-widest uppercase hover:text-white transition-colors text-neutral-400" href="#layout">Layout</a>
+    <a class="text-xs font-medium tracking-widest uppercase hover:text-white transition-colors text-neutral-400" href="#motion">Motion</a>
+    <a class="text-xs font-medium tracking-widest uppercase hover:text-white transition-colors text-neutral-400" href="#icons">Icons</a>
+  </div>
+</nav>
+<section id="hero" class="flex-1 grid grid-cols-1 lg:grid-cols-12 pt-24 pb-10 gap-x-4 gap-y-4 items-center">
+  <div class="col-span-1 lg:col-span-6 pl-6 md:pl-10 pt-10 lg:pt-0 flex flex-col justify-center">
+    <div class="inline-flex items-center gap-2 text-[#D4AF37] mb-8 animate-on-scroll [animation:fadeSlideIn_1s_cubic-bezier(0.2,0.8,0.2,1)_0.1s_both]">
+      <span class="flex h-2 w-2 rounded-full bg-[#D4AF37]" style="animation:goldPulse 2s ease-in-out infinite"></span>
+      <span class="text-xs font-bold tracking-widest uppercase text-[#D4AF37]/80">Design System 2.0</span>
+    </div>
+    <h1 class="text-6xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter text-white font-medium mb-6 animate-on-scroll [animation:fadeSlideIn_1s_cubic-bezier(0.2,0.8,0.2,1)_0.2s_both] gold-glow-text">Build Visual <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-neutral-500">Systems.</span></h1>
+    <p class="leading-relaxed text-lg font-medium text-white/60 max-w-lg animate-on-scroll [animation:fadeSlideIn_1s_cubic-bezier(0.2,0.8,0.2,1)_0.35s_both]">A comprehensive guide to the premium gold design language. Every component, pattern, and interaction documented with cinematic precision.</p>
+    <div class="mt-10 flex flex-wrap gap-6 items-center animate-on-scroll [animation:fadeSlideIn_1s_cubic-bezier(0.2,0.8,0.2,1)_0.5s_both]">
+      <a class="group isolate inline-flex cursor-pointer overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_50px_10px_rgba(212,175,55,0.45)] bg-gradient-to-b from-white/20 via-white/0 to-white/5 rounded-full relative shadow-[0_0_25px_rgba(212,175,55,0.3),0_8px_40px_rgba(212,175,55,0.15)]" href="#typography">
+        <div class="absolute inset-0 overflow-hidden rounded-full"><div class="absolute inset-[-100%] w-[300%] h-[300%] left-[-100%] top-[-100%] animate-[spin_3s_linear_infinite]" style="background:conic-gradient(from 0deg,transparent 0deg,transparent 80deg,rgba(212,175,55,0.8) 180deg,transparent 280deg,transparent 360deg);"></div></div>
+        <div class="absolute inset-[1px] rounded-full backdrop-blur-xl z-0 bg-neutral-950/90"></div>
+        <div class="z-10 flex gap-3 sm:w-auto overflow-hidden text-sm font-medium text-white w-full rounded-full pt-3 pr-5 pb-3 pl-4 relative items-center">
+          <div class="relative z-20 w-7 h-7 rounded-full bg-gradient-to-b from-[#E6C873] to-[#D4AF37] flex items-center justify-center shadow-lg shadow-[#D4AF37]/30 ring-1 ring-white/20 group-hover:scale-110 transition-transform duration-300"><svg class="w-3.5 h-3.5 text-white fill-white" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="14"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z"></path></svg></div>
+          <span class="whitespace-nowrap relative z-10 font-medium tracking-tight text-base text-white/95 group-hover:text-white transition-colors">Explore System</span>
+          <span class="inline-flex items-center justify-center z-10 bg-white/10 w-6 h-6 rounded-full ml-1 relative group-hover:translate-x-0.5 transition-transform text-white/80 group-hover:text-white"><svg class="w-3 h-3" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
+        </div>
+      </a>
+      <div class="flex items-center gap-2 text-xs font-medium text-neutral-500"><svg class="w-3.5 h-3.5 text-[#D4AF37]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M20 6 9 17l-5-5"></path></svg><span>Complete Reference</span></div>
+    </div>
+  </div>
+  <div class="col-span-1 lg:col-span-6 md:pr-10 flex flex-col lg:pt-20 h-full pt-10 pr-6 items-end justify-center">
+    <div class="relative mb-12 mr-4 w-64 md:w-72 aspect-video group perspective-normal animate-on-scroll [animation:fadeSlideIn_1.2s_cubic-bezier(0.2,0.8,0.2,1)_0.4s_both]">
+      <div class="absolute -inset-8 bg-[#D4AF37]/20 blur-3xl -z-10 opacity-50 group-hover:opacity-70 transition-opacity duration-700"></div>
+      <div class="relative w-full h-full">
+        <div class="card-stack-item absolute inset-0 rounded-lg overflow-hidden border border-white/10 shadow-2xl origin-bottom bg-neutral-900" style="transform:translateY(24px) scale(0.9);z-index:10;opacity:0.4;"><img alt="Layer 3" class="w-full h-full object-cover opacity-60" src="../templates/lumina-video/assets/c3337c33-82ae-4ad6-9c83-f9f1a5_1ba1c854e7ba.webp"/><div class="absolute inset-0 bg-black/40"></div></div>
+        <div class="card-stack-item absolute inset-0 rounded-lg overflow-hidden border border-white/10 shadow-2xl origin-bottom bg-neutral-900" style="transform:translateY(12px) scale(0.95);z-index:20;opacity:0.6;"><img alt="Layer 2" class="w-full h-full object-cover opacity-70" src="../templates/lumina-video/assets/6e8af32c-e155-4b33-9e0a-eb91a9_c1c7ef5e7858.webp"/><div class="absolute inset-0 bg-black/20"></div></div>
+        <div class="card-stack-item absolute inset-0 rounded-lg overflow-hidden border border-[#D4AF37]/20 shadow-2xl origin-bottom bg-neutral-900" style="transform:translateY(0px) scale(1);z-index:30;opacity:1;"><img alt="Layer 1" class="w-full h-full object-cover opacity-90" src="../templates/lumina-video/assets/2b5079f4-4ddd-433b-a936-fc8f7d_8dea34ffc1ee.webp"/><div class="flex absolute top-0 right-0 bottom-0 left-0 items-center justify-center"><div class="flex transition-transform hover:scale-110 bg-gradient-to-br from-white/10 via-white/0 to-white/10 w-12 h-12 rounded-full shadow-2xl backdrop-blur-md items-center justify-center border border-white/20"><svg class="w-4 h-4 fill-white text-white ml-1" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path></svg></div></div><div class="absolute top-3 right-3 px-2 py-1 bg-[#D4AF37] text-black text-[10px] font-bold rounded uppercase">Premium</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="md:px-10 mt-16 pt-4 pb-10">
+  <div class="relative w-full py-10 border-y border-white/5 bg-black/20 animate-on-scroll [animation:fadeSlideIn_1s_cubic-bezier(0.2,0.8,0.2,1)_0.4s_both]">
+    <div class="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-[#050505] to-transparent"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-[#050505] to-transparent"></div>
+    <p class="text-xs font-medium mb-6 uppercase tracking-widest text-center text-neutral-500">Trusted by industry leaders</p>
+    <div class="flex overflow-hidden w-full"><div class="flex animate-marquee whitespace-nowrap gap-16 items-center">
+      <iconify-icon class="text-3xl text-neutral-500" icon="simple-icons:nvidia"></iconify-icon>
+      <iconify-icon class="text-3xl text-neutral-500" icon="simple-icons:linear"></iconify-icon>
+      <iconify-icon class="text-3xl text-neutral-500" icon="simple-icons:vercel"></iconify-icon>
+      <iconify-icon class="text-3xl text-neutral-500" icon="simple-icons:apple"></iconify-icon>
+      <iconify-icon class="text-5xl text-neutral-500" icon="simple-icons:stripe"></iconify-icon>
+      <iconify-icon class="text-5xl text-neutral-500" icon="simple-icons:spacex"></iconify-icon>
+      <iconify-icon class="text-3xl text-neutral-500" icon="simple-icons:nvidia"></iconify-icon>
+      <iconify-icon class="text-3xl text-neutral-500" icon="simple-icons:linear"></iconify-icon>
+      <iconify-icon class="text-3xl text-neutral-500" icon="simple-icons:vercel"></iconify-icon>
+      <iconify-icon class="text-3xl text-neutral-500" icon="simple-icons:apple"></iconify-icon>
+      <iconify-icon class="text-5xl text-neutral-500" icon="simple-icons:stripe"></iconify-icon>
+      <iconify-icon class="text-5xl text-neutral-500" icon="simple-icons:spacex"></iconify-icon>
+    </div></div>
+  </div>
+</div>
+
+<!-- 1) TYPOGRAPHY -->
+<section id="typography" class="w-full max-w-7xl mx-auto px-6 md:px-10 py-24 border-t border-white/5">
+  <div class="mb-16"><h2 class="text-5xl md:text-6xl font-medium tracking-tighter text-white mb-4">Typography</h2><p class="text-lg text-neutral-400 max-w-2xl">Complete type scale with exact classes and measurements.</p></div>
+  <div class="space-y-8">
+    <div class="flex items-start justify-between gap-8 pb-8 border-b border-white/5"><div class="flex-1"><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-2">Heading 1 / Hero Display</div><h1 class="text-6xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter text-white font-medium gold-glow-text">The Quick Brown Fox</h1></div><div class="text-right text-sm text-neutral-500 font-mono">96px / 86px</div></div>
+    <div class="flex items-start justify-between gap-8 pb-8 border-b border-white/5"><div class="flex-1"><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-2">Heading 2 / Section Title</div><h2 class="text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-white font-medium">The Quick Brown Fox</h2></div><div class="text-right text-sm text-neutral-500 font-mono">72px / 76px</div></div>
+    <div class="flex items-start justify-between gap-8 pb-8 border-b border-white/5"><div class="flex-1"><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-2">Heading 3 / Subsection</div><h3 class="text-4xl lg:text-5xl leading-[1.05] tracking-tight text-white font-medium">The Quick Brown Fox</h3></div><div class="text-right text-sm text-neutral-500 font-mono">48px / 50px</div></div>
+    <div class="flex items-start justify-between gap-8 pb-8 border-b border-white/5"><div class="flex-1"><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-2">Heading 4 / Card Title</div><h4 class="text-2xl md:text-3xl leading-tight tracking-tight text-white font-semibold">The Quick Brown Fox</h4></div><div class="text-right text-sm text-neutral-500 font-mono">30px / 36px</div></div>
+    <div class="flex items-start justify-between gap-8 pb-8 border-b border-white/5"><div class="flex-1"><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-2">Body Large / Paragraph</div><p class="leading-relaxed text-lg font-medium text-white/60">The quick brown fox jumps over the lazy dog. Primary body content style.</p></div><div class="text-right text-sm text-neutral-500 font-mono">18px / 28px</div></div>
+    <div class="flex items-start justify-between gap-8 pb-8 border-b border-white/5"><div class="flex-1"><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-2">Body Medium</div><p class="text-sm leading-relaxed text-white/60 font-medium">The quick brown fox jumps over the lazy dog. Standard body text.</p></div><div class="text-right text-sm text-neutral-500 font-mono">14px / 20px</div></div>
+    <div class="flex items-start justify-between gap-8 pb-8 border-b border-white/5"><div class="flex-1"><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-2">Gradient Text</div><span class="text-6xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-neutral-500 font-medium">Gradient</span></div><div class="text-right text-sm text-neutral-500 font-mono">96px / 86px</div></div>
+    <div class="flex items-start justify-between gap-8 pb-8 border-b border-white/5"><div class="flex-1"><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-2">Gold Accent Text</div><span class="text-4xl lg:text-5xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#F6E6B4] via-[#D4AF37] to-[#8C6F1F] font-semibold">Premium Gold</span></div><div class="text-right text-sm text-neutral-500 font-mono">48px / custom</div></div>
+    <div class="flex items-start justify-between gap-8"><div class="flex-1"><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-2">Uppercase Label</div><span class="text-xs font-medium tracking-widest uppercase text-neutral-400">UPPERCASE LABEL</span></div><div class="text-right text-sm text-neutral-500 font-mono">12px / 16px</div></div>
+  </div>
+</section>
+
+<!-- 2) COLORS & SURFACES -->
+<section id="colors" class="w-full max-w-7xl mx-auto px-6 md:px-10 py-24 border-t border-white/5">
+  <div class="mb-16"><h2 class="text-5xl md:text-6xl font-medium tracking-tighter text-white mb-4">Colors &amp; Surfaces</h2><p class="text-lg text-neutral-400 max-w-2xl">Gold palette, backgrounds, surfaces and gradient patterns.</p></div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="flex flex-col gap-3"><div class="h-32 rounded-lg bg-[#050505] border border-white/5"></div><div class="text-sm font-medium text-white">Page Background</div><div class="text-xs text-neutral-500 font-mono">#050505</div></div>
+    <div class="flex flex-col gap-3"><div class="h-32 rounded-lg bg-white/5 border border-white/10"></div><div class="text-sm font-medium text-white">Card Surface</div><div class="text-xs text-neutral-500 font-mono">bg-white/5</div></div>
+    <div class="flex flex-col gap-3"><div class="h-32 rounded-lg bg-white/10 backdrop-blur-md border border-white/10"></div><div class="text-sm font-medium text-white">Glass Surface</div><div class="text-xs text-neutral-500 font-mono">bg-white/10 backdrop-blur-md</div></div>
+    <div class="flex flex-col gap-3"><div class="h-32 rounded-lg bg-[#D4AF37]"></div><div class="text-sm font-medium text-white">Gold Primary</div><div class="text-xs text-neutral-500 font-mono">#D4AF37</div></div>
+    <div class="flex flex-col gap-3"><div class="h-32 rounded-lg bg-[#E6C873]"></div><div class="text-sm font-medium text-white">Gold Hover</div><div class="text-xs text-neutral-500 font-mono">#E6C873</div></div>
+    <div class="flex flex-col gap-3"><div class="h-32 rounded-lg bg-[#F6E6B4]"></div><div class="text-sm font-medium text-white">Gold Soft</div><div class="text-xs text-neutral-500 font-mono">#F6E6B4</div></div>
+    <div class="flex flex-col gap-3"><div class="h-32 rounded-lg bg-[#8C6F1F]"></div><div class="text-sm font-medium text-white">Gold Dark</div><div class="text-xs text-neutral-500 font-mono">#8C6F1F</div></div>
+    <div class="flex flex-col gap-3"><div class="h-32 rounded-lg bg-gradient-to-b from-[#E6C873] to-[#D4AF37]"></div><div class="text-sm font-medium text-white">Gold Gradient</div><div class="text-xs text-neutral-500 font-mono">from-[#E6C873] to-[#D4AF37]</div></div>
+    <div class="flex flex-col gap-3"><div class="h-32 rounded-lg bg-gradient-to-br from-[#D4AF37]/20 via-transparent to-[#8C6F1F]/10 border border-[#D4AF37]/20"></div><div class="text-sm font-medium text-white">Gold Glow Surface</div><div class="text-xs text-neutral-500 font-mono">Gold gradient + border</div></div>
+  </div>
+</section>
+
+<!-- 3) UI COMPONENTS -->
+<section id="components" class="w-full max-w-7xl mx-auto px-6 md:px-10 py-24 border-t border-white/5">
+  <div class="mb-16"><h2 class="text-5xl md:text-6xl font-medium tracking-tighter text-white mb-4">UI Components</h2><p class="text-lg text-neutral-400 max-w-2xl">Interactive components with gold accent states.</p></div>
+  <div class="space-y-16">
+    <div><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">Primary Button (Gold)</div><div class="flex flex-wrap gap-6 items-center"><button class="button-custom" type="button"><div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div><span class="inner">Get Started</span></button></div></div>
+    <div><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">Shimmer Beam Button</div><div class="flex flex-wrap gap-6 items-center"><div class="group relative scale-110"><div class="-inset-2 group-hover:opacity-100 transition duration-500 bg-[#D4AF37]/20 opacity-0 rounded-full absolute blur-xl"></div><div class="absolute -inset-[1px] rounded-full overflow-hidden opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"><div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300%] h-[300%] bg-[conic-gradient(from_0deg,transparent_0_340deg,#D4AF37_360deg)] animate-[spin_2s_linear_infinite]"></div></div><button class="group relative z-10 flex items-center justify-center overflow-hidden rounded-full p-[1px] leading-none"><span class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0_340deg,#D4AF37_360deg)]"></span><span class="relative flex h-full w-full items-center rounded-full bg-black pt-4 pr-10 pb-4 pl-10 ring-1 ring-white/10"><span class="absolute inset-0 overflow-hidden rounded-full"><span class="absolute top-0 left-0 h-full w-full -skew-x-12 bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent opacity-0 group-hover:animate-[shimmer_1.5s_infinite] group-hover:opacity-100"></span></span><span class="relative z-10 flex items-center"><span class="text-lg font-medium tracking-wide text-white">Beam Effect</span></span><span class="relative z-10 ml-4 flex items-center text-neutral-500 transition duration-200 group-hover:translate-x-1 group-hover:text-[#D4AF37]"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></button></div></div></div>
+    <div><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">Step Item (Gold)</div><div class="flex flex-col gap-3 max-w-xs"><div class="step-item flex cursor-pointer transition-all duration-300 bg-white/5 rounded-lg p-2 shadow-xl backdrop-blur-md translate-x-[-10px] gap-4 items-center" style="position:relative;--border-gradient:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,0));--border-radius-before:8px"><div class="w-6 h-6 rounded-full bg-[#D4AF37] flex items-center justify-center text-[10px] font-bold text-black shadow-lg shadow-[#D4AF37]/20">01</div><span class="text-sm font-medium text-white">Active Step</span><svg class="w-3 h-3 ml-auto text-[#D4AF37] opacity-100" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M20 6 9 17l-5-5"></path></svg></div><div class="step-item flex gap-4 hover:bg-white/5 transition-all duration-300 cursor-pointer group rounded-lg p-2 items-center" style="position:relative;--border-gradient:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,0));--border-radius-before:8px"><div class="w-6 h-6 rounded-full bg-transparent flex items-center justify-center text-[10px] font-bold group-hover:text-[#E6C873] transition-colors text-neutral-500">02</div><span class="text-sm font-medium group-hover:text-white transition-colors text-neutral-400">Inactive Step</span></div></div></div>
+    <div><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">Flashlight Card (Gold Reveal)</div><div class="grid grid-cols-2 gap-6 max-w-lg"><div class="flashlight-card relative aspect-square border-0 bg-neutral-900/60 ring-1 ring-white/5 rounded-lg p-6 flex flex-col justify-end group overflow-hidden" onmousemove="const r=this.getBoundingClientRect();this.style.setProperty('--mouse-x',`${event.clientX-r.left}px`);this.style.setProperty('--mouse-y',`${event.clientY-r.top}px`);"><iconify-icon class="text-4xl text-neutral-500 mb-3 group-hover:text-[#D4AF37] transition-colors duration-500" icon="solar:layers-minimalistic-bold-duotone"></iconify-icon><div class="text-xs text-neutral-400 font-medium tracking-wide">Hover Me</div></div><div class="flashlight-card relative aspect-square border-0 bg-neutral-900/60 ring-1 ring-white/5 rounded-lg p-6 flex flex-col justify-end group overflow-hidden" onmousemove="const r=this.getBoundingClientRect();this.style.setProperty('--mouse-x',`${event.clientX-r.left}px`);this.style.setProperty('--mouse-y',`${event.clientY-r.top}px`);"><iconify-icon class="text-4xl text-neutral-500 mb-3 group-hover:text-[#E6C873] transition-colors duration-500" icon="solar:cpu-bold-duotone"></iconify-icon><div class="text-xs text-neutral-400 font-medium tracking-wide">Gold Trace</div></div></div></div>
+    <div><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">Feature Card (Gold)</div><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div class="flex flex-col min-h-[180px] transition-transform hover:-translate-y-1 duration-300 text-black bg-gradient-to-b from-[#E6C873] to-[#D4AF37] rounded-xl p-8 relative shadow-2xl justify-between" style="position:relative;--border-gradient:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0));--border-radius-before:12px"><p class="text-lg font-semibold leading-snug tracking-tight max-w-[80%]">"A premium experience that transforms every workflow."</p><div class="mt-4 pt-4 border-t border-black/10 flex items-center gap-2 text-xs font-medium uppercase tracking-wide opacity-70"><span>Verified Creator</span><span class="w-1 h-1 bg-black rounded-full"></span><span>5.0 Rating</span></div></div><div class="flex flex-col min-h-[180px] bg-white/5 rounded-lg border border-white/10 backdrop-blur-md p-8"><h3 class="text-xl font-semibold text-white mb-2">Standard Card</h3><p class="text-sm text-neutral-400">Glass card style for content containers.</p></div></div></div>
+  </div>
+</section>
+
+<!-- 4) LAYOUT & SPACING -->
+<section id="layout" class="w-full max-w-7xl mx-auto px-6 md:px-10 py-24 border-t border-white/5">
+  <div class="mb-16"><h2 class="text-5xl md:text-6xl font-medium tracking-tighter text-white mb-4">Layout &amp; Spacing</h2><p class="text-lg text-neutral-400 max-w-2xl">Grid systems, containers, and spacing utilities.</p></div>
+  <div class="space-y-16">
+    <div><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">12-Column Grid</div><div class="grid grid-cols-1 lg:grid-cols-12 gap-4"><div class="col-span-1 lg:col-span-6 bg-white/5 rounded-lg border border-white/10 p-6"><div class="text-sm font-medium text-white mb-2">Left (6 cols)</div><div class="text-xs text-neutral-400">lg:col-span-6</div></div><div class="col-span-1 lg:col-span-6 bg-white/5 rounded-lg border border-white/10 p-6"><div class="text-sm font-medium text-white mb-2">Right (6 cols)</div><div class="text-xs text-neutral-400">lg:col-span-6</div></div></div></div>
+    <div><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">Split Layout</div><div class="grid grid-cols-1 lg:grid-cols-2 gap-8"><div class="bg-white/5 rounded-lg border border-white/10 p-8"><div class="text-sm font-medium text-white mb-2">Left Content</div><div class="text-xs text-neutral-400">grid-cols-1 lg:grid-cols-2</div></div><div class="bg-white/5 rounded-lg border border-white/10 p-8"><div class="text-sm font-medium text-white mb-2">Right Content</div><div class="text-xs text-neutral-400">Equal width columns</div></div></div></div>
+    <div><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">Spacing Scale (Gold)</div><div class="space-y-4"><div class="flex items-center gap-4"><div class="w-4 h-4 bg-[#D4AF37] rounded"></div><span class="text-sm text-white">gap-4 / 16px</span></div><div class="flex items-center gap-6"><div class="w-6 h-6 bg-[#D4AF37] rounded"></div><span class="text-sm text-white">gap-6 / 24px</span></div><div class="flex items-center gap-8"><div class="w-8 h-8 bg-[#D4AF37] rounded"></div><span class="text-sm text-white">gap-8 / 32px</span></div><div class="flex items-center gap-12"><div class="w-12 h-12 bg-[#D4AF37] rounded"></div><span class="text-sm text-white">gap-12 / 48px</span></div></div></div>
+  </div>
+</section>
+
+<!-- 5) MOTION & INTERACTION -->
+<section id="motion" class="w-full max-w-7xl mx-auto px-6 md:px-10 py-24 border-t border-white/5">
+  <div class="mb-16"><h2 class="text-5xl md:text-6xl font-medium tracking-tighter text-white mb-4">Motion &amp; Interaction</h2><p class="text-lg text-neutral-400 max-w-2xl">Animation patterns, transitions, and interactive behaviors.</p></div>
+  <div class="space-y-16">
+    <div><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">Scroll Reveal</div><div class="bg-white/5 rounded-lg border border-white/10 p-8 animate-on-scroll [animation:fadeSlideIn_1s_cubic-bezier(0.2,0.8,0.2,1)_0.1s_both]"><div class="text-sm font-medium text-white">Animated on Scroll</div><div class="text-xs text-neutral-400 mt-2">animate-on-scroll with fadeSlideIn</div></div></div>
+    <div><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">Hover Transitions</div><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="bg-white/5 rounded-lg border border-white/10 p-8 transition-all duration-300 hover:bg-white/10 hover:-translate-y-1 cursor-pointer"><div class="text-sm font-medium text-white">Hover Lift</div><div class="text-xs text-neutral-400 mt-2">hover:-translate-y-1</div></div><div class="bg-white/5 rounded-lg border border-white/10 p-8 transition-all duration-300 hover:scale-105 cursor-pointer"><div class="text-sm font-medium text-white">Hover Scale</div><div class="text-xs text-neutral-400 mt-2">hover:scale-105</div></div><div class="bg-white/5 rounded-lg border border-white/10 p-8 transition-colors duration-300 hover:border-[#D4AF37]/50 cursor-pointer"><div class="text-sm font-medium text-white">Hover Gold Border</div><div class="text-xs text-neutral-400 mt-2">hover:border-[#D4AF37]/50</div></div></div></div>
+    <div><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">Gold Beam Animation</div><div class="relative h-32 bg-white/5 rounded-lg border border-white/10 overflow-hidden"><div class="absolute top-0 left-1/4 w-[1px] h-32 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent animate-beam-1"></div><div class="absolute top-0 left-1/2 w-[1px] h-32 bg-gradient-to-b from-transparent via-[#E6C873] to-transparent animate-beam-2"></div><div class="absolute top-0 left-3/4 w-[1px] h-32 bg-gradient-to-b from-transparent via-[#D4AF37]/60 to-transparent animate-beam-3"></div></div><div class="text-xs text-neutral-400 mt-4">Gold beam-fall keyframes</div></div>
+    <div><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">Card Stack Transition</div><div class="relative w-64 h-48 perspective-normal"><div class="card-stack-item absolute inset-0 rounded-lg bg-white/5 border border-white/10" style="transform:translateY(24px) scale(0.9);z-index:10;opacity:0.4;"></div><div class="card-stack-item absolute inset-0 rounded-lg bg-white/10 border border-white/10" style="transform:translateY(12px) scale(0.95);z-index:20;opacity:0.6;"></div><div class="card-stack-item absolute inset-0 rounded-lg bg-white/20 border border-[#D4AF37]/20" style="transform:translateY(0px) scale(1);z-index:30;opacity:1;"></div></div></div>
+  </div>
+</section>
+
+<!-- 6) ICONS -->
+<section id="icons" class="w-full max-w-7xl mx-auto px-6 md:px-10 py-24 border-t border-white/5">
+  <div class="mb-16"><h2 class="text-5xl md:text-6xl font-medium tracking-tighter text-white mb-4">Icons</h2><p class="text-lg text-neutral-400 max-w-2xl">Lucide &amp; Solar icon system with gold color variants.</p></div>
+  <div class="space-y-12">
+    <div><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">Icon Sizes</div><div class="flex flex-wrap items-center gap-8"><div class="flex flex-col items-center gap-2"><svg class="w-3 h-3 text-white" fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="12"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z"></path></svg><span class="text-xs text-neutral-400">12px</span></div><div class="flex flex-col items-center gap-2"><svg class="w-4 h-4 text-white" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="16"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z"></path></svg><span class="text-xs text-neutral-400">16px</span></div><div class="flex flex-col items-center gap-2"><svg class="w-5 h-5 text-white" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="20"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z"></path></svg><span class="text-xs text-neutral-400">20px</span></div><div class="flex flex-col items-center gap-2"><svg class="w-6 h-6 text-white" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z"></path></svg><span class="text-xs text-neutral-400">24px</span></div></div></div>
+    <div><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">Icon Colors (Gold System)</div><div class="flex flex-wrap items-center gap-8"><div class="flex flex-col items-center gap-2"><svg class="w-5 h-5 text-white" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M20 6 9 17l-5-5"></path></svg><span class="text-xs text-neutral-400">text-white</span></div><div class="flex flex-col items-center gap-2"><svg class="w-5 h-5 text-[#D4AF37]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M20 6 9 17l-5-5"></path></svg><span class="text-xs text-neutral-400">Gold Primary</span></div><div class="flex flex-col items-center gap-2"><svg class="w-5 h-5 text-[#E6C873]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M20 6 9 17l-5-5"></path></svg><span class="text-xs text-neutral-400">Gold Hover</span></div><div class="flex flex-col items-center gap-2"><svg class="w-5 h-5 text-[#8C6F1F]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M20 6 9 17l-5-5"></path></svg><span class="text-xs text-neutral-400">Gold Dark</span></div><div class="flex flex-col items-center gap-2"><svg class="w-5 h-5 text-neutral-400" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M20 6 9 17l-5-5"></path></svg><span class="text-xs text-neutral-400">text-neutral-400</span></div></div></div>
+    <div><div class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">Solar Icons (Duotone)</div><div class="grid grid-cols-4 md:grid-cols-8 gap-6"><div class="flex flex-col items-center gap-2"><iconify-icon class="text-2xl text-white" icon="solar:stars-minimalistic-bold-duotone"></iconify-icon><span class="text-xs text-neutral-400">Stars</span></div><div class="flex flex-col items-center gap-2"><iconify-icon class="text-2xl text-[#D4AF37]" icon="solar:layers-minimalistic-bold-duotone"></iconify-icon><span class="text-xs text-neutral-400">Layers</span></div><div class="flex flex-col items-center gap-2"><iconify-icon class="text-2xl text-white" icon="solar:cpu-bold-duotone"></iconify-icon><span class="text-xs text-neutral-400">CPU</span></div><div class="flex flex-col items-center gap-2"><iconify-icon class="text-2xl text-[#E6C873]" icon="solar:database-bold-duotone"></iconify-icon><span class="text-xs text-neutral-400">Database</span></div><div class="flex flex-col items-center gap-2"><iconify-icon class="text-2xl text-white" icon="solar:arrow-right-bold-duotone"></iconify-icon><span class="text-xs text-neutral-400">Arrow</span></div><div class="flex flex-col items-center gap-2"><iconify-icon class="text-2xl text-[#D4AF37]" icon="solar:arrow-right-up-bold-duotone"></iconify-icon><span class="text-xs text-neutral-400">Arrow Up</span></div><div class="flex flex-col items-center gap-2"><iconify-icon class="text-2xl text-white" icon="solar:arrow-down-bold-duotone"></iconify-icon><span class="text-xs text-neutral-400">Arrow Down</span></div><div class="flex flex-col items-center gap-2"><iconify-icon class="text-2xl text-[#E6C873]" icon="solar:file-check-bold-duotone"></iconify-icon><span class="text-xs text-neutral-400">File Check</span></div></div></div>
+  </div>
+</section>
+
+<footer class="w-full max-w-7xl mx-auto px-6 md:px-10 py-16 border-t border-white/5 text-center">
+  <div class="text-xs font-medium tracking-widest uppercase text-neutral-500 mb-4">Gold Design System v2.0</div>
+  <div class="text-sm text-neutral-600">Built with precision. Every element documented.</div>
+</footer>
+</div>
+</body>
+</html>

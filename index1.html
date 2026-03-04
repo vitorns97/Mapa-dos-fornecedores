@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa dos Fornecedores</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-h: #E6C873;
+            --bg: #050505;
+        }
+
+        html,
+        body {
+            background: var(--bg);
+            color: white;
+            overflow-x: hidden;
+            width: 100%;
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0
+        }
+
+        .hero-glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 70% 35%, rgba(212, 175, 55, 0.18), transparent 52%);
+            pointer-events: none;
+        }
+
+        /* ============================= */
+        /* BOTÃO PREMIUM (LUMINA VIBE)    */
+        /* ============================= */
+        .premium-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 9999px;
+            transition: all .35s ease;
+            will-change: transform, box-shadow;
+            min-height: 56px;
+        }
+
+        .premium-btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 60px 12px rgba(212, 175, 55, .55);
+        }
+
+        .premium-btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 0 20px 4px rgba(212, 175, 55, .35);
+        }
+
+        .premium-btn::before {
+            content: "";
+            position: absolute;
+            inset: -120%;
+            width: 300%;
+            height: 300%;
+            left: -100%;
+            top: -100%;
+            background: conic-gradient(from 0deg,
+                    transparent 0deg,
+                    transparent 70deg,
+                    rgba(230, 200, 115, .95) 180deg,
+                    transparent 290deg,
+                    transparent 360deg);
+            animation: spin 2.8s linear infinite;
+            opacity: .95;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg)
+            }
+
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .premium-inner-mask {
+            position: absolute;
+            inset: 2px;
+            border-radius: 9999px;
+            backdrop-filter: blur(20px);
+            background: linear-gradient(180deg, rgba(10, 10, 10, .95), rgba(5, 5, 5, .95));
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, .06),
+                inset 0 0 60px rgba(212, 175, 55, .08);
+        }
+
+        .premium-idle-glow {
+            position: absolute;
+            inset: 2px;
+            border-radius: 9999px;
+            background: radial-gradient(120% 160% at 15% 20%, rgba(212, 175, 55, .22), transparent 60%);
+            opacity: .9;
+            pointer-events: none;
+        }
+
+        .glass {
+            background: rgba(17, 17, 17, .45);
+            border: 1px solid rgba(255, 255, 255, .07);
+            backdrop-filter: blur(18px);
+        }
+
+        .glass-panel {
+            background: rgba(23, 23, 23, 0.58);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .video-frame {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            background: #0a0a0a;
+            aspect-ratio: 16/9;
+            width: 100%;
+        }
+
+        .video-frame::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(120% 90% at 80% 10%, rgba(212, 175, 55, 0.20), transparent 55%),
+                linear-gradient(to top, rgba(5, 5, 5, 0.9), rgba(5, 5, 5, 0.15), rgba(5, 5, 5, 0.05));
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .video-frame::after {
+            content: "";
+            position: absolute;
+            inset: -20%;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(246, 230, 180, 0.10) 45%,
+                    rgba(212, 175, 55, 0.16) 50%,
+                    rgba(246, 230, 180, 0.10) 55%,
+                    transparent 100%);
+            pointer-events: none;
+            z-index: 3;
+            animation: shineSweep 2.6s ease-in-out infinite;
+            opacity: 0.55;
+        }
+
+        .video-el {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            transform: scale(1.02);
+            filter: saturate(1.05) contrast(1.04);
+            object-fit: cover;
+        }
+
+        @keyframes shineSweep {
+            0% {
+                transform: translateX(-120%) skewX(-18deg);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            55% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(120%) skewX(-18deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes fadeSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+                filter: blur(8px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .animate-on-scroll {
+            animation-play-state: paused !important;
+        }
+
+        .animate-on-scroll.animate {
+            animation-play-state: running !important;
+        }
+    </style>
+
+    <script>
+        (function () {
+            var once = true;
+            if (!window.__inViewIO) {
+                window.__inViewIO = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("animate");
+                            if (once) window.__inViewIO.unobserve(entry.target)
+                        }
+                    });
+                }, { threshold: 0.15, rootMargin: "0px 0px -10% 0px" })
+            }
+            window.initInViewAnimations = function (selector) {
+                selector = selector || ".animate-on-scroll";
+                document.querySelectorAll(selector).forEach(function (el) { window.__inViewIO.observe(el) })
+            };
+            document.addEventListener("DOMContentLoaded", function () { initInViewAnimations() });
+        })();
+    </script>
+</head>
+
+<body class="relative min-h-[100svh] overflow-x-hidden w-full">
+
+    <div class="hero-glow"></div>
+
+    <main class="relative z-10 max-w-7xl mx-auto px-5 md:px-10 pt-10 pb-14 w-full">
+        <section class="min-h-[85svh] flex items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center w-full">
+
+                <!-- LEFT -->
+                <div class="lg:col-span-6 flex flex-col order-1 lg:order-1 mt-0">
+                    <div class="flex items-center gap-2 text-[#D4AF37] mb-6">
+                        <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
+                        <span class="text-xs tracking-widest uppercase opacity-80 font-bold">
+                            Lançamento
+                        </span>
+                    </div>
+
+                    <h1
+                        class="text-[clamp(2.05rem,6vw+0.25rem,3.75rem)] leading-[1.03] tracking-tight font-medium mb-5 max-w-[22ch]">
+                        Entre no Brás com quem já está lá dentro —
+                        <span class="text-[#D4AF37]">e evite perder dinheiro</span>
+                        nos seus primeiros fornecedores.
+                    </h1>
+
+                    <p class="text-white/60 text-[1.05rem] md:text-lg mb-6 max-w-xl leading-snug">
+                        Acesso validado + grupo exclusivo para você encontrar fornecedores confiáveis
+                        e começar sua marca sem cair em golpe ou receber peça lixo.
+                    </p>
+
+                    <ul class="space-y-3 mb-8 text-white/80 text-[15px] md:text-base">
+                        <li class="flex gap-2"><span class="text-[#D4AF37]">✓</span> Contatos testados no Brás/SP</li>
+                        <li class="flex gap-2"><span class="text-[#D4AF37]">✓</span> Fornecedores que realmente entregam
+                            qualidade
+                        </li>
+                        <li class="flex gap-2"><span class="text-[#D4AF37]">✓</span> Grupo de suporte antes de fechar
+                            pedido</li>
+                        <li class="flex gap-2"><span class="text-[#D4AF37]">✓</span> Do tecido à peça pronta</li>
+                    </ul>
+
+                    <!-- CTA -->
+                    <a href="https://pay.cakto.com.br/338uvef_786092?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPNTY3MDY3MzQzMzUyNDI3AAGn2rUWbzsHP1XqrSp_1zbN_pfcv9H2IsHwTyus1uTHmKTgbAZ4Dhw6ZSCQ34w_aem_X_TrdcrmclCzcR9jEBMiKA"
+                        class="premium-btn w-full sm:w-auto shadow-[0_0_30px_rgba(212,175,55,0.35),0_12px_50px_rgba(212,175,55,0.18)]">
+                        <div class="premium-inner-mask"></div>
+                        <div class="premium-idle-glow"></div>
+
+                        <div class="relative z-10 flex items-center gap-4 px-6 py-3 text-sm font-semibold">
+                            <div
+                                class="w-8 h-8 rounded-full bg-gradient-to-b from-[#E6C873] to-[#D4AF37] flex items-center justify-center shadow-lg">
+                                🔒
+                            </div>
+
+                            <span class="text-base">
+                                Quero acessar os fornecedores validados
+                            </span>
+
+                            <div class="w-7 h-7 bg-white/10 rounded-full flex items-center justify-center">
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- ✅ Apenas 2 itens + alinhado -->
+                    <div
+                        class="mt-5 flex items-center justify-center sm:justify-start gap-10 text-[11px] md:text-xs text-white/50 tracking-widest uppercase">
+                        <span class="whitespace-nowrap">Pagamento via Pix</span>
+                        <span class="whitespace-nowrap">Acesso imediato</span>
+                    </div>
+                </div>
+
+                <!-- RIGHT (desktop only) -->
+                <div class="lg:col-span-6 justify-center order-2 lg:order-2 mt-8 lg:mt-0 hidden lg:flex">
+                    <div class="relative w-full max-w-[360px] lg:max-w-[380px]">
+                        <div class="absolute inset-0 bg-[#D4AF37]/18 blur-[85px] rounded-full"></div>
+
+                        <div class="relative glass rounded-2xl p-2 shadow-[0_25px_80px_-25px_rgba(0,0,0,.9)]">
+                            <div class="relative overflow-hidden rounded-xl border border-white/10 bg-black/10">
+                                <div class="w-full aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] max-h-[580px]">
+                                    <img src="assets/raw_files/imagem-1.png" alt="Vitor - Mapa dos Fornecedores"
+                                        class="w-full h-full object-cover object-top" />
+                                </div>
+
+                                <div class="absolute bottom-4 right-4">
+                                    <div
+                                        class="px-4 py-2 rounded-full bg-black/65 backdrop-blur-md border border-white/10 text-xs font-semibold flex items-center gap-2 shadow-lg">
+                                        <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
+                                        <span class="text-white/90">Acesso Liberado</span>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/35 via-transparent to-transparent">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 2 -->
+        <section class="py-16 md:py-32 min-h-[100svh] flex items-center relative border-t border-white/5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center w-full">
+                <div class="lg:col-span-6 flex flex-col justify-center order-2 lg:order-1 mt-4 lg:mt-0">
+                    <h2
+                        class="text-[clamp(2rem,5vw+1rem,3.5rem)] font-medium tracking-tight leading-[1.05] mb-6 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.1s_both]">
+                        Quanto custa errar no seu <span class="text-[#D4AF37]">primeiro fornecedor?</span>
+                    </h2>
+
+                    <div
+                        class="text-lg text-white/50 mb-10 font-light leading-relaxed animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.2s_both]">
+                        No Brás, o erro não vem com aviso.<br />
+                        Ele vem depois do pagamento.<br />
+                        <span class="text-white/80">E normalmente vem caro.</span>
+                    </div>
+
+                    <div
+                        class="space-y-6 mb-12 relative animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.3s_both]">
+                        <div class="font-medium text-white/90 mb-6 text-xl border-l-[3px] border-[#D4AF37] pl-5 py-1">
+                            Você acha que está começando um negócio.<br />
+                            <span class="text-white/50 text-lg">Mas pode estar começando um prejuízo.</span>
+                        </div>
+
+                        <ul class="space-y-4 text-white/70 font-light flex flex-col gap-1 text-[0.95rem]">
+                            <li class="flex items-start gap-4 group">
+                                <div
+                                    class="mt-2 w-1.5 h-1.5 rounded-full bg-[#D4AF37]/40 group-hover:bg-[#D4AF37] transition-colors shrink-0">
+                                </div>
+                                <span class="group-hover:text-white transition-colors">Pedido mínimo que você não
+                                    consegue vender</span>
+                            </li>
+                            <li class="flex items-start gap-4 group">
+                                <div
+                                    class="mt-2 w-1.5 h-1.5 rounded-full bg-[#D4AF37]/40 group-hover:bg-[#D4AF37] transition-colors shrink-0">
+                                </div>
+                                <span class="group-hover:text-white transition-colors">Peça abaixo do combinado</span>
+                            </li>
+                            <li class="flex items-start gap-4 group">
+                                <div
+                                    class="mt-2 w-1.5 h-1.5 rounded-full bg-[#D4AF37]/40 group-hover:bg-[#D4AF37] transition-colors shrink-0">
+                                </div>
+                                <span class="group-hover:text-white transition-colors">Fornecedor que responde até
+                                    receber… e depois some</span>
+                            </li>
+                            <li class="flex items-start gap-4 group">
+                                <div
+                                    class="mt-2 w-1.5 h-1.5 rounded-full bg-[#D4AF37]/40 group-hover:bg-[#D4AF37] transition-colors shrink-0">
+                                </div>
+                                <span class="group-hover:text-white transition-colors">Atraso que trava sua coleção
+                                    inteira</span>
+                            </li>
+                            <li class="flex items-start gap-4 group">
+                                <div
+                                    class="mt-2 w-1.5 h-1.5 rounded-full bg-[#D4AF37]/40 group-hover:bg-[#D4AF37] transition-colors shrink-0">
+                                </div>
+                                <span class="group-hover:text-white transition-colors">Dinheiro parado no estoque
+                                    errado</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div
+                        class="inline-flex py-4 px-6 rounded-xl bg-[#D4AF37]/5 border border-[#D4AF37]/10 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.5s_both]">
+                        <p class="text-lg md:text-xl font-medium tracking-tight text-white/90">
+                            "<span class="text-[#D4AF37]" style="text-shadow: 0 0 20px rgba(212,175,55,0.3);">Aprender
+                                errando</span>
+                            pode custar mais do que começar certo."
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="lg:col-span-6 flex justify-center lg:justify-end animate-on-scroll [animation:fadeSlideIn_1.2s_ease-out_0.3s_both] perspective-1000 group order-1 lg:order-2">
+                    <div class="relative w-full max-w-[360px] lg:max-w-[400px]">
+                        <div
+                            class="absolute inset-0 bg-[#D4AF37]/5 blur-[80px] rounded-full scale-90 group-hover:bg-[#D4AF37]/15 transition-all duration-1000 pointer-events-none">
+                        </div>
+
+                        <div
+                            class="w-full relative rounded-2xl overflow-hidden glass shadow-[0_25px_80px_-25px_rgba(0,0,0,0.9)] border border-white/5 flex items-center justify-center p-2 transform transition-transform duration-700 ease-out sm:group-hover:rotate-[-1deg] sm:group-hover:scale-[1.02]">
+                            <div
+                                class="w-full aspect-[4/5] sm:aspect-[3/4] max-h-[620px] rounded-xl overflow-hidden border border-white/5 bg-black/40 relative">
+                                <img src="assets/raw_files/imagem-3.png" alt="Consequências no Brás"
+                                    class="w-full h-full object-cover object-center opacity-70 mix-blend-luminosity brightness-75 group-hover:mix-blend-normal group-hover:opacity-100 group-hover:brightness-90 transition-all duration-1000 ease-out" />
+                                <div
+                                    class="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-1000">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3 -->
+        <section class="py-16 md:py-32 min-h-[100svh] flex items-center relative border-t border-white/5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center w-full">
+
+                <div class="lg:col-span-6 flex flex-col justify-center order-2 lg:order-1 mt-4 lg:mt-0">
+                    <h2
+                        class="text-[clamp(2.2rem,5vw+1rem,3.5rem)] font-medium tracking-tight leading-[1.05] mb-6 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.1s_both]">
+                        O atalho entre você e os fornecedores <span
+                            class="bg-clip-text text-transparent bg-gradient-to-r from-[#D4AF37] to-[#E6C873]">certos.</span>
+                    </h2>
+
+                    <div
+                        class="text-lg text-white/50 mb-10 font-light leading-relaxed animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.2s_both]">
+                        O Mapa dos Fornecedores organiza o caminho para você começar com mais clareza e menos
+                        risco.<br />
+                        Sem depender de indicação aleatória.<br />
+                        <span class="text-white/80">Sem testar no escuro.</span>
+                    </div>
+
+                    <div class="space-y-6 mb-12 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.3s_both]">
+                        <div
+                            class="text-xs tracking-widest uppercase text-[#D4AF37] font-bold mb-4 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#D4AF37]"></span>
+                            Você recebe
+                        </div>
+
+                        <ul class="space-y-4 text-white/80 font-light flex flex-col gap-2 text-[1.05rem]">
+                            <li class="flex items-start gap-4">
+                                <span class="text-[#D4AF37] mt-0.5">✓</span>
+                                <span>Contatos testados e organizados</span>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <span class="text-[#D4AF37] mt-0.5">✓</span>
+                                <span>Direcionamento para escolher o fornecedor ideal para sua necessidade</span>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <span class="text-[#D4AF37] mt-0.5">✓</span>
+                                <span>Grupo exclusivo para validar decisões antes de fechar pedido</span>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <span class="text-[#D4AF37] mt-0.5">✓</span>
+                                <span>Acesso imediato após confirmação</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div
+                        class="inline-flex py-4 px-6 rounded-xl bg-[#D4AF37]/5 border border-[#D4AF37]/10 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.4s_both] mb-8 lg:mb-0">
+                        <p class="text-lg md:text-xl font-medium tracking-tight text-white/90">
+                            Não é uma lista solta.<br />
+                            <span class="text-[#D4AF37]" style="text-shadow: 0 0 20px rgba(212,175,55,0.3);">É acesso
+                                com orientação.</span>
+                        </p>
+                    </div>
+
+                    <div
+                        class="mt-6 lg:mt-12 text-sm text-white/40 font-light animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.5s_both]">
+                        Baseado em experiência real dentro do Brás/SP.
+                    </div>
+                </div>
+
+                <!-- VIDEO (intocado) -->
+                <div
+                    class="col-span-1 lg:col-span-6 relative order-1 lg:order-2 h-full flex items-center justify-center animate-on-scroll [animation:fadeSlideIn_1.2s_ease-out_0.3s_both]">
+                    <div
+                        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-[#D4AF37]/15 blur-[90px] rounded-full -z-10 animate-[float_6s_ease-in-out_infinite] pointer-events-none">
+                    </div>
+
+                    <div
+                        class="glass-panel p-2.5 rounded-2xl relative shadow-[0_20px_60px_-15px_rgba(0,0,0,0.82)] transition-transform duration-200 ease-out w-full max-w-xl mx-auto group">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-tr from-[#D4AF37]/30 to-transparent opacity-20 rounded-2xl pointer-events-none">
+                        </div>
+
+                        <div class="video-frame max-md:!aspect-square">
+                            <video class="video-el" autoplay muted loop playsinline preload="metadata" poster=""
+                                aria-label="Vídeo do Mapa dos Fornecedores">
+                                <source src="assets/raw_files/video-1.mp4" type="video/mp4" />
+                                Seu navegador não suporta vídeo HTML5.
+                            </video>
+
+                            <div
+                                class="absolute bottom-5 right-5 z-30 px-4 py-2 bg-black/70 backdrop-blur-md border border-white/10 rounded-full flex items-center gap-2 text-xs font-semibold tracking-wide text-white shadow-xl">
+                                <span
+                                    class="w-2 h-2 rounded-full bg-[#D4AF37] shadow-[0_0_8px_#D4AF37] animate-pulse"></span>
+                                Mapa em ação
+                            </div>
+
+                            <div
+                                class="absolute top-4 left-4 z-30 px-3 py-1.5 bg-black/55 backdrop-blur-md border border-white/10 rounded-full flex items-center gap-2 text-[11px] font-semibold tracking-wide text-white/90">
+                                <span class="text-[#D4AF37] text-sm">📍</span>
+                                Brás / SP • Fornecedores validados
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 4 -->
+        <section class="py-16 md:py-32 min-h-[100svh] flex items-center relative border-t border-white/5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center w-full">
+
+                <div
+                    class="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2 animate-on-scroll [animation:fadeSlideIn_1.2s_ease-out_0.3s_both] perspective-1000 group">
+                    <div class="relative w-full max-w-[400px] lg:max-w-none">
+                        <div
+                            class="absolute inset-0 bg-[#D4AF37]/5 blur-[80px] rounded-full scale-90 group-hover:bg-[#D4AF37]/15 transition-all duration-1000 pointer-events-none">
+                        </div>
+
+                        <div
+                            class="w-full relative rounded-2xl overflow-hidden glass shadow-[0_25px_80px_-25px_rgba(0,0,0,0.9)] border border-white/5 flex items-center justify-center p-2 transform transition-transform duration-700 ease-out sm:group-hover:rotate-[1deg] sm:group-hover:scale-[1.02]">
+                            <div
+                                class="w-full aspect-square sm:aspect-[4/5] rounded-xl overflow-hidden border border-white/5 bg-black/40 relative">
+                                <img src="assets/raw_files/imagem-4.png" alt="Vitor"
+                                    class="w-full h-full object-cover object-[center_20%] opacity-85 group-hover:opacity-100 transition-all duration-1000 ease-out" />
+                                <div
+                                    class="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-1000">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 flex flex-col justify-center order-2 lg:order-1 mt-4 lg:mt-0 lg:pr-8">
+                    <div
+                        class="inline-flex items-center gap-2 text-[#D4AF37] mb-6 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.1s_both]">
+                        <span
+                            class="flex h-1.5 w-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_8px_#D4AF37] animate-pulse"></span>
+                        <span class="text-xs font-bold tracking-widest uppercase text-[#D4AF37]/80">QUEM ESTÁ POR
+                            TRÁS</span>
+                    </div>
+
+                    <h2
+                        class="text-[clamp(2.15rem,5vw+0.5rem,3.25rem)] font-medium tracking-tight leading-[1.05] mb-8 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.2s_both]">
+                        O acesso existe porque <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#E6C873]">alguém já
+                            está lá dentro.</span>
+                    </h2>
+
+                    <div
+                        class="text-lg text-white/60 mb-8 font-light leading-relaxed space-y-4 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.3s_both]">
+                        <p>Enquanto muita gente tenta descobrir sozinho como funciona,<br />
+                            Vitor já está há <span class="text-[#D4AF37] font-medium"
+                                style="text-shadow: 0 0 20px rgba(212,175,55,0.3);">7 anos</span> nos <span
+                                class="text-[#D4AF37] font-medium"
+                                style="text-shadow: 0 0 20px rgba(212,175,55,0.3);">bastidores</span> conectando marcas
+                            às oficinas certas.</p>
+                        <p>Não por teoria.<br />
+                            <span class="text-[#D4AF37]">Por prática.</span>
+                        </p>
+                    </div>
+
+                    <div class="space-y-4 mb-8 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.4s_both]">
+                        <ul class="space-y-4 text-white/80 font-light flex flex-col gap-1 text-[1.05rem]">
+                            <li class="flex items-start gap-4">
+                                <span class="text-[#D4AF37] mt-0.5">✓</span>
+                                <span>Do tecido à peça pronta.</span>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <span class="text-[#D4AF37] mt-0.5">✓</span>
+                                <span>Acompanhando produção.</span>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <span class="text-[#D4AF37] mt-0.5">✓</span>
+                                <span>Ajustando fornecedor.</span>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <span class="text-[#D4AF37] mt-0.5">✓</span>
+                                <span>Evitando erro antes que ele vire prejuízo.</span>
+                            </li>
+                        </ul>
+                        <div class="pt-4 text-white/50 text-[1.05rem] font-light">
+                            O que para muitos é indicação…<br />
+                            <span class="text-[#D4AF37]">Para ele é rotina.</span>
+                        </div>
+                    </div>
+
+                    <div
+                        class="text-[1.05rem] text-white/60 font-light leading-relaxed mb-10 border-l-2 border-[#D4AF37]/30 pl-5 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.5s_both]">
+                        O Mapa não nasceu de curiosidade.<br />
+                        Nasceu da <span class="text-[#D4AF37] font-medium"
+                            style="text-shadow: 0 0 20px rgba(212,175,55,0.3);">vivência</span>.<br />
+                        De ver onde as pessoas normalmente erram.<br />
+                        E organizar um caminho mais seguro.
+                    </div>
+
+                    <div
+                        class="w-full glass-panel p-6 sm:p-8 rounded-2xl relative shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] border border-[#D4AF37]/20 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.6s_both] group">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-tr from-[#D4AF37]/10 to-transparent opacity-30 rounded-2xl pointer-events-none transition-opacity duration-500 group-hover:opacity-50">
+                        </div>
+
+                        <p
+                            class="text-[1.15rem] md:text-xl font-medium tracking-tight text-white/90 relative z-10 text-center sm:text-left">
+                            Você não está comprando um PDF.<br />
+                            Está acessando <span class="text-[#D4AF37] font-semibold"
+                                style="text-shadow: 0 0 20px rgba(212,175,55,0.4);">experiência aplicada.</span>
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 5 -->
+        <section class="py-16 md:py-32 relative border-t border-white/5 overflow-hidden">
+            <div class="absolute inset-0 bg-[#0a0a0a]"></div>
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#D4AF37]/5 blur-[150px] rounded-full pointer-events-none">
+            </div>
+            <div
+                class="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505] pointer-events-none">
+            </div>
+
+            <div class="relative z-10 w-full max-w-[1200px] mx-auto px-5 md:px-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-center">
+
+                    <div
+                        class="lg:col-span-7 flex flex-col pt-8 lg:pt-0 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.1s_both]">
+                        <h2
+                            class="text-[clamp(2.15rem,5.5vw+0.5rem,3.25rem)] font-medium tracking-tight leading-[1.1] mb-8">
+                            Você pode continuar tentando no escuro.<br />
+                            Ou pode <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#E6C873]">começar
+                                com direção.</span>
+                        </h2>
+
+                        <div class="text-lg md:text-[1.15rem] text-white/50 mb-10 font-light leading-relaxed max-w-xl">
+                            <p>Errar ensina. Mas no início, normalmente custa caro.</p>
+                            <p class="mt-4">O caminho já está organizado. A experiência já existe.<br />
+                                <span class="text-white/80 font-medium tracking-wide">Agora a decisão é sua.</span>
+                            </p>
+                        </div>
+
+                        <div class="mb-6 w-full sm:w-auto self-start">
+                            <a href="https://pay.cakto.com.br/338uvef_786092?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPNTY3MDY3MzQzMzUyNDI3AAGn2rUWbzsHP1XqrSp_1zbN_pfcv9H2IsHwTyus1uTHmKTgbAZ4Dhw6ZSCQ34w_aem_X_TrdcrmclCzcR9jEBMiKA"
+                                class="premium-btn w-full sm:w-auto flex shadow-[0_0_30px_rgba(212,175,55,0.35),0_12px_50px_rgba(212,175,55,0.18)]">
+                                <div class="premium-inner-mask"></div>
+                                <div class="premium-idle-glow"></div>
+
+                                <div
+                                    class="relative z-10 flex items-center justify-center gap-4 px-8 py-4 text-sm md:text-base font-semibold w-full">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-gradient-to-b from-[#E6C873] to-[#D4AF37] flex items-center justify-center shadow-lg">
+                                        🔒
+                                    </div>
+                                    <span>Quero começar com direção</span>
+                                    <div class="w-7 h-7 bg-white/10 rounded-full flex items-center justify-center">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- ✅ Apenas 2 itens + alinhado -->
+                        <div
+                            class="flex items-center justify-center sm:justify-start gap-10 text-[11px] md:text-xs text-white/40 tracking-widest uppercase">
+                            <span class="whitespace-nowrap">Acesso imediato</span>
+                            <span class="whitespace-nowrap">Pagamento via Pix</span>
+                        </div>
+
+                        <div class="mt-4 text-[10px] sm:text-[11px] text-white/30 font-light">
+                            * Grupo com vagas controladas para manter a qualidade do suporte.
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 w-full animate-on-scroll [animation:fadeSlideIn_1.2s_ease-out_0.3s_both]">
+                        <div
+                            class="glass-panel p-8 sm:p-10 rounded-3xl relative shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)] border border-[#D4AF37]/20 group">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/10 to-transparent opacity-30 rounded-3xl pointer-events-none transition-opacity duration-500 group-hover:opacity-40">
+                            </div>
+
+                            <div class="relative z-10">
+                                <h3 class="text-xl md:text-[1.35rem] text-white/90 font-medium mb-8 leading-snug">Com o
+                                    Mapa dos Fornecedores, você tem:</h3>
+
+                                <ul class="space-y-5 text-white/70 font-light flex flex-col">
+                                    <li class="flex items-start gap-4">
+                                        <div
+                                            class="flex-shrink-0 w-6 h-6 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mt-0.5 border border-[#D4AF37]/30">
+                                            <span class="text-[#D4AF37] text-sm">✓</span>
+                                        </div>
+                                        <span class="text-[1.05rem] leading-snug pt-0.5">Contatos organizados e
+                                            testados</span>
+                                    </li>
+                                    <li class="flex items-start gap-4">
+                                        <div
+                                            class="flex-shrink-0 w-6 h-6 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mt-0.5 border border-[#D4AF37]/30">
+                                            <span class="text-[#D4AF37] text-sm">✓</span>
+                                        </div>
+                                        <span class="text-[1.05rem] leading-snug pt-0.5">Direcionamento antes de fechar
+                                            pedido</span>
+                                    </li>
+                                    <li class="flex items-start gap-4">
+                                        <div
+                                            class="flex-shrink-0 w-6 h-6 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mt-0.5 border border-[#D4AF37]/30">
+                                            <span class="text-[#D4AF37] text-sm">✓</span>
+                                        </div>
+                                        <span class="text-[1.05rem] leading-snug pt-0.5">Grupo exclusivo para validar
+                                            decisões</span>
+                                    </li>
+                                    <li class="flex items-start gap-4">
+                                        <div
+                                            class="flex-shrink-0 w-6 h-6 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mt-0.5 border border-[#D4AF37]/30">
+                                            <span class="text-[#D4AF37] text-sm">✓</span>
+                                        </div>
+                                        <span class="text-[1.05rem] leading-snug pt-0.5">Acesso imediato após
+                                            confirmação</span>
+                                    </li>
+                                </ul>
+
+                                <div
+                                    class="mt-10 pt-6 border-t border-white/10 text-[1.05rem] text-white/50 font-light leading-relaxed">
+                                    Sem promessa de faturamento.<br />
+                                    <span class="text-[#D4AF37]/90 font-medium">Com promessa de clareza.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div
+                    class="mt-20 md:mt-24 pt-10 md:pt-12 border-t border-white/10 flex justify-center text-center px-4 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.5s_both]">
+                    <p class="text-xl md:text-2xl font-light text-white/50 tracking-wide">
+                        Começar certo é mais barato do que <span class="text-white/90 font-normal">começar duas
+                            vezes.</span>
+                    </p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>
